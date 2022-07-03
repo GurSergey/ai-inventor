@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--  user1  test-->
+    <meta charset="UTF-8">
+    <title>DataMarkup</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/icon type">
+    <!-- Bootstrap   -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script defer src="script.js"></script>
+    <script defer>
+        let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+          return new bootstrap.Popover(popoverTriggerEl)
+        })
+
+        let collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+        let collapseList = collapseElementList.map(function (collapseEl) {
+          return new bootstrap.Collapse(collapseEl)
+        })
+    </script>
+</head>
+<body>
+
+<!--HEADER-->
+<nav class="navbar navbar-expand-lg navbar-light" >
+<div class="container-fluid">
+    <img src="inventor.png" class="float-start" alt="icon" style="width: 75px; height: 75px; margin: 20px;">
+    <a class="navbar-brand " href="#">Inventor - Demo</a>
+    <span></span>
+</div>
+</nav>
+
+<div class="card-group">
+    <div class="card " >
+        <h5 class="card-title">Форма ввода</h5>
+        <div>
+            <label for="industries-text" >Отрасль промышленности:</label>
+            <textarea class="form-control" id="industries-text" rows="2"></textarea>
+        </div>
+        <div>
+            <label for="target-text" >Цель технического решения:</label>
+            <textarea class="form-control" id="target-text" rows="2"></textarea>
+        </div>
+        <div>
+            <label for="current-text" >Описание существующей технической системы (прототипа изобретения):</label>
+            <textarea class="form-control" id="current-text" rows="2"></textarea>
+        </div>
+        <div>
+            <label for="faults-text" >Недостатки существующей технической системы:</label>
+            <textarea class="form-control" id="faults-text" rows="2"></textarea>
+        </div>
+        <div>
+            <label for="ml-model">Используемая модель:</label>
+            <select class="form-select" id="ml-model" aria-label="Default select example">
+                <option value="t5base">T5-Base</option>
+                <option value="t5large">T5-Large (Not Realized)</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" id="generate-button" >
+            <span class="status-active">Сгенерировать ответ</span>
+            <span class="status-generate spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span class="status-generate">Идет генерация ответа</span>
+        </button>
+        <button type="button" id="clear-button" class="btn btn-secondary">Отчистить ввод</button>
+    </div>
+    <div class="card " >
+        <h5 class="card-title">Инструкция по эксплуатации:</h5>
+        <p>
+            Данное приложение является демонстрацией работы нейронной сети обученной на 200 тысячах патентах.
+            Система генерирует 5 решений<br>
+            Пример ввода: <br>
+            "изобретение относится к осветительной технике", <br>
+            "Цель изобретения повышение прочности колбы в условиях пониженного давления в открытом космосе, так как внутреннее давление является более высоким чем снаружи",<br>
+            "Известна лампа накаливания, колба которой заполнена инертным газом",<br>
+            "Недостатком является низкая прочность колбы в условиях пониженного давления в открытом космосе",<br>
+            Пример решения созданного системой: <br>
+            "Достигается тем что лампа накаливания колба соде ржи т по меньшей мере один эле ме нт выполненный в виде усечен ног о конуса со <b> сквозным отверстием </b> на боковой поверхности которого выполнены <b> сквозные отверстия </b> ..." <br>
+            Правильный ответ этого кейса: <br>
+            В колбе нужно сделать <b> сквозные отверстия </b>, т.к. в открытом космосе нет кислорода, из-за которого нить вольфрама перегорает <br>
+
+        </p>
+        <hr>
+        <h5>Решения: </h5>
+        <p id="button-p"></p>
+        <div id="answer-div"></div>
+
+
+        <template id="button-collapse-template">
+          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapse">
+            Решение
+          </a>
+        </template>
+        <template id="card-template">
+            <div class="collapse" id="collapseExample">
+                <h6 class="header-solve">Решение </h6>
+              <div class="card card-body">
+
+              </div>
+            </div>
+        </template>
+    </div>
+</div>
+
+</body>
+</html>
