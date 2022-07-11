@@ -1,5 +1,5 @@
 Flask==2.0.3
-torch==1.5.0
+torch==1.11.0
 transformers==4.18.0
 pyaml_env==1.1.5
 numpy==1.21.5
